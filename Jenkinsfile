@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'sudo docker build . -t srikanth/nodo-todo-app-test:latest'
+                sh 'sudo docker build -t srikanth/nodo-todo-app-test:latest'
             }
         }
         stage('Test image') {
