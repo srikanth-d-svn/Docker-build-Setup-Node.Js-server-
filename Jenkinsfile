@@ -27,10 +27,11 @@ pipeline {
         stage('Deploy'){
             steps{
                 echo 'deploying on another server'
-                'sudo docker stop nodetodoapp || true'
-                'sudo docker rm nodetodoapp || true'
-                'sudo docker run -d --name nodetodoapp srikanth/nodo-todo-app-test:latest'
-                 Ubuntudemo.pem -o StrictHostKeyChecking=no  ubuntu@ec2-13-233-25-81 <<EOF
+                sh 'sudo docker stop nodetodoapp || true'
+                sh 'sudo docker rm nodetodoapp || true'
+                sh 'sudo docker run -d --name nodetodoapp srikanth/nodo-todo-app-test:latest'
+                sh '''
+                ssh -i Ubuntudemo.pem -o StrictHostKeyChecking=no  ubuntu@ec2-13-233-25-81 <<EOF
                 sudo docker login -u srikanth -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc
                 sudo docker pull srikanth/nodo-todo-app-test:latest
                 sudo docker stop nodetodoapp || true
