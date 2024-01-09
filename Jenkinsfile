@@ -3,7 +3,7 @@ pipeline {
     stages{
         stage('Checkout'){
             steps{
-                git url: 'https://github.com/Basanagoudapatil02/Project-on-Building-and-Deploying-a-Node.js-Application-with-Docker-on-Ubuntu.git', branch: 'master'
+                git url: 'https://github.com/srikanth-d-svn/Docker-build-Setup-Node.Js-server-.git', branch: 'main'
             }
         }
         stage('Build'){
