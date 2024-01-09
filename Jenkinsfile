@@ -8,13 +8,13 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'docker build -t srikanth/nodo-todo-app-test:latest'
+                sh 'sudo docker build -t srikanth/nodo-todo-app-test:latest'
             }
         }
         stage('Test image') {
             steps {
                 echo 'testing...'
-                sh 'docker inspect --type=image srikanth/nodo-todo-app-test:latest '
+                sh 'sudo docker inspect --type=image srikanth/nodo-todo-app-test:latest '
             }
         }
         
