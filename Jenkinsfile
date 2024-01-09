@@ -1,5 +1,6 @@
 pipeline {
     agent any
+    
     stages{
         stage('Checkout'){
             steps{
@@ -8,35 +9,35 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'sudo docker build . -t srikanth066:latest'
+                sh 'sudo docker build -t srikanth066/docker-nodejs-demo:latest'
             }
         }
         stage('Test image') {
             steps {
                 echo 'testing...'
-                sh 'sudo docker inspect --type=image srikanth066:latest '
+                sh 'sudo docker inspect --srikanth066/docker-nodejs-demo:latest '
             }
         }
         
         stage('Push'){
             steps{
-        	     sh "sudo docker login -u srikanth -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc"
-                 sh 'sudo docker push srikanth066:latest'
+        	     sh "sudo docker login -u srikanth066 -p *e+xP%+WtDV.2F+"
+                 sh 'sudo docker push srikanth066/docker-nodejs-demo:latest'
             }
         }  
         stage('Deploy'){
             steps{
                 echo 'deploying on another server'
-                sh 'sudo docker stop srikanth066 || true'
-                sh 'sudo docker rm srikanth066 || true'
-                sh 'sudo docker run -d --name nodetodoapp srikanth066:latest'
+                sh 'sudo docker stop srikanth066/docker-nodejs-demo || true'
+                sh 'sudo docker rm srikanth066/docker-nodejs-demo || true'
+                sh 'sudo docker run -d -name dockernodejsdemo -p 8000:8000 srikanth066/docker-nodejs-demo:latest'
                 sh '''
-                ssh -i Ubuntudemo.pem -o StrictHostKeyChecking=no ubuntu@44.211.144.201 <<EOF
-                sudo docker login -u srikanth -p dckr_pat_OvN0lH_USJztUCkm0opyjz-yXNc
-                sudo docker pull srikanth066:latest
-                sudo docker stop nodetodoapp || true
-                sudo docker rm nodetodoapp || true 
-                sudo docker run -d --name nodetodoapp srikanth066:latest
+                ssh -i Ubuntudemo.pem -o StrictHostKeyChecking=no ubuntu@ec2-13-235-8-62 <<EOF
+                sudo docker login -u srikanth066 -p *e+xP%+WtDV.2F+
+                sudo docker pull srikanth066/docker-nodejs-demo:latest
+                sudo docker stop dockernodejsdemo || true
+                sudo docker rm dockernodejsdemo || true 
+                sudo docker run -d --name dockernodejsdemo -p 8000:8000 srikanth066/docker-nodejs-demo:latest
                 '''
             }
         }
