@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build'){
             steps{
-                sh 'sudo docker build -t srikanth066/docker-nodejs-demo:latest'
+                sh 'sudo docker build . -t srikanth066/docker-nodejs-demo:latest'
             }
         }
         stage('Test image') {
